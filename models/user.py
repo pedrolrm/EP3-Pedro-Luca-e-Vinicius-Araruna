@@ -1,6 +1,6 @@
 import os 
 from typing import List, Optional
-from models.database import BaseModel
+from models.base_model import BaseModel
 
 # User herda do BaseModel para ter acesso aos metodos comuns de CRUD
 class User(BaseModel):
