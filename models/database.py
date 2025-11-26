@@ -21,6 +21,8 @@ def init_db():
     conn = get_db_connection()
     cursor = conn.cursor()
 
+    cursor.execute ("PRAGMA foreign_keys = ON;")
+
     print(f"Criando banco de dados em: {DB_PATH}")
 
     #user table
@@ -37,7 +39,7 @@ def init_db():
         CREATE TABLE IF NOT EXISTS categoria(
                    id INTEGER PRIMARY KEY AUTOINCREMENT,
                    nome TEXT NOT NULL,
-                   tipo TEXT NOT NULL) -- 'receita' ou 'despesa'
+                   tipo TEXT NOT NULL
                ) 
            ''')
 
