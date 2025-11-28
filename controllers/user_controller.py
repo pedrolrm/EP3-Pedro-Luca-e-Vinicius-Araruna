@@ -1,21 +1,43 @@
 from bottle import Bottle, request
 from .base_controller import BaseController
-from services.user_service import UserService
+from models.user import UserModel, User
 
 class UserController(BaseController):
     def __init__(self, app):
         super().__init__(app)
 
         self.setup_routes()
-        self.user_service = UserService()
+        self.user_service = UserModel()
 
 
     # Rotas User
     def setup_routes(self):
+        #rotas de autenticação
+        self.app.route('/cadastro', method=['GET', 'POST'], callback=self.registrar)
+        self.app.route('/login', method=['GET'], callback=self.login_view)
+
         self.app.route('/users', method='GET', callback=self.list_users)
         self.app.route('/users/add', method=['GET', 'POST'], callback=self.add_user)
         self.app.route('/users/edit/<user_id:int>', method=['GET', 'POST'], callback=self.edit_user)
         self.app.route('/users/delete/<user_id:int>', method='POST', callback=self.delete_user)
+
+    def registrar(self):
+        if request.method == 'GET':
+            return self.render('views/register.html', erro=None)
+        elif request.method == 'POST':
+            nome = request.forms.get('nome')
+            email = request.forms.get('email')
+            senha = request.forms.get('senha')
+
+            if self.user_service.get_by_email(email):
+                return self.render('views/register.html', erro= "Email ja cadastrado!")
+            
+            try:
+                self.user_service.create_user(nome,email,senha)
+                print(f"Usuário {nome} cadastrado com sucesso!")
+                return self.redirect('/login')
+            except Exception as e:
+                return self.render('views/register.html', erro=f"Erro: {str(e)}")
 
 
     def list_users(self):
