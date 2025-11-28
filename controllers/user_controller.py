@@ -33,12 +33,16 @@ class UserController(BaseController):
                 return self.render('views/register.html', erro= "Email ja cadastrado!")
             
             try:
-                self.user_service.create_user(nome,email,senha)
+                novo_user = User(id=None, name=nome, email=email, password=senha, birthdate=None)
+                self.user_service.add_user(novo_user)
+
                 print(f"Usuário {nome} cadastrado com sucesso!")
                 return self.redirect('/login')
             except Exception as e:
                 return self.render('views/register.html', erro=f"Erro: {str(e)}")
 
+    def login_view(self):
+        return "<h1> Página de Login (Em breve) </h1> <a href = '/cadastro'> Ir para Cadastro</a> "
 
     def list_users(self):
         users = self.user_service.get_all()
@@ -62,6 +66,9 @@ class UserController(BaseController):
         if request.method == 'GET':
             return self.render('user_form', user=user, action=f"/users/edit/{user_id}")
         else:
+            # atualiza o objeto com dados do form
+            user.name = request.forms.get('name')
+            user.email = request.forms.get('email')
             # POST - salvar edição
             self.user_service.edit_user(user)
             self.redirect('/users')
