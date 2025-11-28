@@ -25,6 +25,137 @@ body {
   margin: 0;
 }
 
+/*HOME PAGE*/
+.hero.section {
+  text-align: center;
+  padding: 80px 20px;
+  background: white;
+  margin: 20px auto;
+  max-width: 900px;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+}
+
+.hero.title {
+  font-size: 3rem;
+  color: var(--primary-color);
+  margin-bottom: 15px;
+}
+
+.hero.subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+.action.buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Botoes */
+.btn {
+  display: inline-block;
+  padding: 12px 30px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-sucess {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-outline {
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+
+/* estilos login e cadastro*/
+.auth-wrapper {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.auth-guard {
+  background: white;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 400px;
+  border-top: 5px solid var(--primary-color);
+}
+
+.form-group{
+  margin-bottom: 20px;
+}
+label{
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+input{
+  width: 100%;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.full-width-btn {
+  width:100%;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.erro-msg {
+  background-color: #ffebee;
+  color: var(--danger-color);
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+  margin-bottom: 20px;
+  border: 1px solid #ffcdd2;
+}
+
+.switch-link {
+  text-align: center;
+  margin-top: 20px;
+  display: block;
+  font-size: 0.9rem;
+  color: var(--primary-color);
+}
+
 /* Layout */
 .container {
   max-width: 1200px;
