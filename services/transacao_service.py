@@ -65,15 +65,15 @@ class TransacaoService:
         finally:
             conn.close()
     
-    def update_transacao(self, transacao_id, valor, data, descricao, categoria_id):
+    def update_transacao(self, usuario_id, transacao_id, valor, data, descricao, categoria_id):
         conn = get_db_connection()
         cursor = conn.cursor()
         try:
             cursor.execute('''
                 UPDATE transacao
                 SET valor = ?, data = ?, descricao = ?, categoria_id = ?
-                WHERE id = ?
-            ''', (valor, data, descricao, categoria_id, transacao_id))
+                WHERE id = ? AND usuario_id = ?
+            ''', (valor, data, descricao, categoria_id, transacao_id, usuario_id))
             conn.commit()
             return cursor.rowcount > 0  # Retorna True se alguma linha foi atualizada
         except sqlite3.Error as e:
@@ -82,11 +82,11 @@ class TransacaoService:
         finally:
             conn.close()
 
-    def delete_transacao(self, transacao_id):
+    def delete_transacao(self, transacao_id, usuario_id):
         conn = get_db_connection()
         cursor = conn.cursor()
         try:
-            cursor.execute('DELETE FROM transacao WHERE id = ? AND usuario_id = ?', (transacao_id,)) # Confirmando que o usuário está deletando a sua própria transação
+            cursor.execute('DELETE FROM transacao WHERE id = ? AND usuario_id = ?', (transacao_id, usuario_id)) # Confirmando que o usuário está deletando a sua própria transação
             conn.commit()
             return cursor.rowcount > 0  # Retorna True se alguma linha foi deletada
         except sqlite3.Error as e:
