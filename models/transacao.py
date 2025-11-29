@@ -11,7 +11,7 @@ class Transacao:
 
     def to_dict(self):
         """ Converte o objeto para dicionário (necessário para o Bottle gerar o JSON) """
-        return {
+        data = {
             'id': self.id,
             'valor': self.valor,
             'data': self.data,
@@ -21,3 +21,10 @@ class Transacao:
             'categoria_nome': self.categoria_nome,
             'tipo_transacao': self.tipo_transacao
         }
+
+        if self.categoria_nome: # Adiciona ao JSON apenas se nao for None
+            data["categoria_nome"] = self.categoria_nome
+        if self.tipo_transacao:
+            data["tipo_transacao"] = self.tipo_transacao
+            
+        return data
