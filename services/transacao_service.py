@@ -1,5 +1,6 @@
 import sqlite3
 from models.database import get_db_connection
+from models.transacao import Transacao
 
 class TransacaoService:
 
@@ -23,10 +24,12 @@ class TransacaoService:
     
     def get_transacao_by_user(self, usuario_id):
         conn = get_db_connection()
+        conn.row_factory = sqlite3.Row 
         cursor = conn.cursor()
+        
         query = """
             SELECT 
-                t.id, t.valor, t.data, t.descricao, 
+                t.id, t.valor, t.data, t.descricao, t.usuario_id, t.categoria_id,
                 c.nome as categoria_nome, c.tipo as tipo_transacao
             FROM transacao t
             INNER JOIN categoria c ON t.categoria_id = c.id
@@ -35,11 +38,30 @@ class TransacaoService:
         """
         try:
             cursor.execute(query, (usuario_id,))
-            transacoes = [dict(row) for row in cursor.fetchall()] # Converte cada linha em um dicionario
-            return transacoes
+            rows = cursor.fetchall()
+            
+            lista_transacoes = []
+            
+            for row in rows:
+                transacao_obj = Transacao(
+                    id=row['id'],
+                    valor=row['valor'],
+                    data=row['data'],
+                    descricao=row['descricao'],
+                    usuario_id=row['usuario_id'],
+                    categoria_id=row['categoria_id'],
+                    categoria_nome=row['categoria_nome'],
+                    tipo_transacao=row['tipo_transacao']
+                )
+                
+
+                lista_transacoes.append(transacao_obj.to_dict())
+                
+            return lista_transacoes
+
         except sqlite3.Error as e:
-            print(f"Ocorreu um erro ao buscar transacoes: {e}")
-            return None
+            print(f"Erro ao buscar transacoes: {e}")
+            return []
         finally:
             conn.close()
     
