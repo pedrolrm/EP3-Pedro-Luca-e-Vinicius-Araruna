@@ -1,20 +1,16 @@
-/* Reset e Estilos Globais */
+/*VARIÁVEIS E BASE */
 :root {
-  --primary-color: #3498db;
-  --secondary-color: #2980b9;
-  --danger-color: #e74c3c;
-  --success-color: #2ecc71;
+  --primary-color: #3498db;    /* Azul */
+  --secondary-color: #2980b9;  /* Azul Escuro */
+  --danger-color: #e74c3c;     /* Vermelho */
+  --success-color: #2ecc71;    /* Verde */
   --text-color: #333;
   --light-gray: #f5f5f5;
   --border-color: #ddd;
-  --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -23,35 +19,84 @@ body {
   background-color: #f9f9f9;
   padding: 0;
   margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-/*HOME PAGE*/
-.hero.section {
+/* Links globais */
+a { text-decoration: none; }
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background-color: #1a1a1a;
+    box-shadow: 0 4px 10px rgba(0 ,0, 0, 0.03);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: #ecf0f1;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.nav-item:hover { color: var(--primary-color); }
+
+/*HOME PAGE (Hero Section) */
+.hero-section {
   text-align: center;
   padding: 80px 20px;
   background: white;
-  margin: 20px auto;
+  margin: 40px auto;
   max-width: 900px;
   border-radius: 10px;
   box-shadow: var(--shadow);
 }
 
-.hero.title {
+.hero-title {
   font-size: 3rem;
   color: var(--primary-color);
   margin-bottom: 15px;
 }
 
-.hero.subtitle {
+.hero-subtitle {
   font-size: 1.2rem;
   color: #666;
   margin-bottom: 40px;
 }
 
-.action.buttons {
+.action-buttons {
   display: flex;
   gap: 20px;
   justify-content: center;
+}
+
+
+/* Footer */
+.main-footer{
+  background-color: #1a1a1a;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: auto;
+  font-size: 0.9rem;
+  border-top: 5px solid var(--primary-color);
 }
 
 /* Botoes */
@@ -62,6 +107,7 @@ body {
   text-decoration: none;
   font-weight: bold;
   transition: transform 0.2s, opacity 0.2s;
+  cursor: pointer;
 }
 
 .btn:hover {
@@ -74,18 +120,21 @@ body {
   color: white;
 }
 
-.btn-sucess {
-  background-color: var(--primary-color);
+.btn-success {
+  background-color: var(--success-color); 
   color: white;
 }
 
-.btn-outline {
-  border: 2px solid var(--primary-color);
-  color: var(--primary-color);
+.btn-small {
+    padding: 8px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 4px;
+    font-size: 0.9rem;
 }
+.btn-small:hover { background-color: var(--secondary-color); }
 
-
-/* estilos login e cadastro*/
+/* AUTH (Login e Cadastro) */
 .auth-wrapper {
   flex-grow: 1;
   display: flex;
@@ -94,7 +143,7 @@ body {
   padding: 20px;
 }
 
-.auth-guard {
+.auth-card {
   background: white;
   padding: 40px;
   border-radius: 8px;
@@ -104,18 +153,19 @@ body {
   border-top: 5px solid var(--primary-color);
 }
 
-.form-group{
+.form-group {
   margin-bottom: 20px;
 }
-label{
+
+label {
   display: block;
   margin-bottom: 8px;
   font-weight: 600;
 }
 
-input{
+input {
   width: 100%;
-  padding: 20px;
+  padding: 12px; 
   border: 1px solid var(--border-color);
   border-radius: 5px;
   font-size: 14px;
@@ -128,7 +178,7 @@ input:focus {
 }
 
 .full-width-btn {
-  width:100%;
+  width: 100%;
   padding: 12px;
   border: none;
   border-radius: 6px;
@@ -136,6 +186,7 @@ input:focus {
   font-weight: bold;
   cursor: pointer;
   font-size: 16px;
+  background-color: var(--primary-color);
 }
 
 .erro-msg {
@@ -153,10 +204,11 @@ input:focus {
   margin-top: 20px;
   display: block;
   font-size: 0.9rem;
-  color: var(--primary-color);
+  color: var(--secondary-color);
+  cursor: pointer;
 }
 
-/* Layout */
+/* Layout Geral */
 .container {
   max-width: 1200px;
   margin: 20px auto;
@@ -165,4 +217,3 @@ input:focus {
   border-radius: 8px;
   box-shadow: var(--shadow);
 }
-
