@@ -217,3 +217,76 @@ input:focus {
   border-radius: 8px;
   box-shadow: var(--shadow);
 }
+
+/* DASHBOARD STYLES */
+.main-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 25px;
+    width: 100%;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 16px;
+    border: 1px solid rgba(0,0,0,0.03);
+    box-shadow: var(--card-shadow);
+    padding: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-bottom: 35px;
+}
+
+.summary-card { display: flex; align-items: center; }
+
+.card-icon {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.card-icon svg { width: 26px; height: 26px; }
+
+.icon-receita { background-color: #d1fae5; color: var(--success-color); }
+.icon-despesa { background-color: #fee2e2; color: var(--danger-color); }
+.icon-saldo   { background-color: #e0f2fe; color: var(--primary-color); }
+
+.summary-card h3 { font-size: 0.85rem; color: #9ca3af; text-transform: uppercase; font-weight: 600; margin-bottom: 5px; }
+.valor { font-size: 1.8rem; font-weight: 700; color: #111827; line-height: 1.1; }
+.receita { color: var(--success-color); }
+.despesa { color: var(--danger-color); }
+
+.full-width-chart-section { margin-bottom: 35px; }
+
+.charts-grid-split {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 25px;
+    align-items: stretch;
+}
+
+.chart-card { display: flex; flex-direction: column; min-height: 400px; }
+.card-header {
+    margin-bottom: 25px;
+    border-bottom: 1px solid #f3f4f6;
+    padding-bottom: 15px;
+}
+.card-header h3 { font-size: 1.1rem; color: var(--secondary-color); font-weight: 600; }
+.chart-container-box { flex-grow: 1; position: relative; width: 100%; }
+.doughnut-container { display: flex; align-items: center; }
+
+@media (max-width: 900px) {
+    .charts-grid-split { grid-template-columns: 1fr; }
+}
