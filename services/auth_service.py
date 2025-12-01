@@ -22,7 +22,7 @@ class AuthService:
     def _generate_token(self, user_id, user_name):
         """GERA HASH JWT"""
         payload = {
-            "sub": user_id, #id do user
+            "sub": str(user_id), #id do user
             "name": user_name,#nome
             "iat": int(time.time()), #data de criacao
             "exp": int(time.time()) + 3600 #expirar em 1 hora
