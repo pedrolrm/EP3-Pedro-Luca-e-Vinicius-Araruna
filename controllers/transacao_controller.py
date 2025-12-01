@@ -1,6 +1,7 @@
 from bottle import Bottle, request, response
 import json
 from services.transacao_service import TransacaoService
+from utils.auth_middleware import require_auth
 
 transacao_app = Bottle()
 service = TransacaoService()
@@ -10,11 +11,13 @@ def json_response(data, status=200): # Helper para formatar respostas JSON
     response.content_type = 'application/json'
     return json.dumps(data)
 
+@require_auth  #protejendo as rotas com o decorator 
 @transacao_app.route('/', method='GET') # Listar
 def list_transacoes_by_user():
     transacoes = service.get_transacao_by_user(request.query.usuario_id)
     return json_response(transacoes)
 
+@require_auth  #protejendo as rotas com o decorator 
 @transacao_app.route('/', method='POST') # Criar
 def create_transacao(): 
     data = request.json
@@ -33,7 +36,8 @@ def create_transacao():
         return json_response({'message': 'Transação criada com sucesso.', 'transacao_id': new_id}, status=201)
     else:
         return json_response({'error': 'Ocorreu um erro ao criar a transação.'}, status=500)
-    
+
+@require_auth    #protejendo as rotas com o decorator 
 @transacao_app.route('/<transacao_id>', method='PUT') # Atualizar
 def update_transacao(transacao_id):
     data = request.json
@@ -51,11 +55,11 @@ def update_transacao(transacao_id):
         return json_response({'message': "Transação atualizada com sucesso."})
     else:
         return json_response({'error': 'Ocorreu um erro ao atualizar a transação.'}, status=500)
-    
+
+@require_auth   #protejendo as rotas com o decorator 
 @transacao_app.route('/<transacao_id>',  method='DELETE') # Deletar
 def delete_transacao(transacao_id):
-    data = request.json
-    success = service.delete_transacao(transacao_id, data.get('user_id'))
+    success = service.delete_transacao(transacao_id, request.get('user_id'))
     if success:
         return json_response({'message': 'Transação deletada com sucesso.'})
     else:
