@@ -3,6 +3,7 @@ from controllers.user_controller import UserController
 from controllers.auth_controller import AuthController
 from controllers.base_controller import BaseController
 from controllers.transacao_controller import TransacaoController
+from controllers.estatisticas_controller import EstatisticasController
 
 def init_controllers(app: Bottle):
     """
@@ -19,5 +20,6 @@ def init_controllers(app: Bottle):
     UserController(app)
     #TransacaoController CRUD transacoes
     TransacaoController(app)
-
+    #EstatisticasController estatisticas
+    EstatisticasController(app)
     print('Rotas registradas com sucesso!')
