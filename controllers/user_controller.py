@@ -1,4 +1,4 @@
-from bottle import Bottle, request
+from bottle import Bottle, request, response
 from .base_controller import BaseController
 from models.user import UserModel, User
 
@@ -42,7 +42,24 @@ class UserController(BaseController):
                 return self.render('views/register.html', erro=f"Erro: {str(e)}")
 
     def login_view(self):
-        return "<h1> Página de Login (Em breve) </h1> <a href = '/cadastro'> Ir para Cadastro</a> "
+        if request.method == 'GET':
+            return self.render('views/login.html', erro=None)
+                
+        elif request.method == 'POST':
+            email = request.forms.get('email')
+            senha = request.forms.get('senha')
+            user = self.user_service.get_by_email(email)
+            if user and user.password == senha:
+                response.set_cookie("user_id", str(user.id), secret='sua_chave_secreta_aqui')
+                print(f"Usuário {user.name} logado com sucesso.")
+                return self.redirect('/dashboard')
+            else:
+                return self.render('views/login.html', erro="E-mail ou senha incorretos.")
+    
+    def logout(self):
+        # Remove o cookie para sair
+        response.delete_cookie("user_id")
+        return self.redirect('/login')
 
     def list_users(self):
         users = self.user_service.get_all()
