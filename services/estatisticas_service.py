@@ -30,6 +30,8 @@ class EstatisticasService:
         try:
             cursor.execute(query, params)
             resultados = cursor.fetchall()
+            return [dict(row) for row in resultados] # FIX: convertendo para lista de dicionarios
+        
         except sqlite3.Error as e:
             print(f"Erro ao buscar estatísticas: {e}")
             resultados = []
