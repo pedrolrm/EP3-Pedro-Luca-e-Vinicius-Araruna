@@ -1,39 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="../static/css/login.css">
+    <title>Login - FincApp</title>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
-
 <body>
-  
+
+    <nav class="navbar">
+        <div class="logo">FincApp</div>
+        <div class="nav-links">
+            <a href="/" class="nav-item">Home</a>
+            <a href="/cadastro" class="btn-small">Criar Conta</a>
+        </div>
+    </nav>
+
     <div class="auth-wrapper">
         <div class="auth-card">
-            <h2 style="text-align: center; margin-bottom: 20px; color: var(--primary-color);">Login</h2>
+            <h2 style="text-align: center; margin-bottom:20px; color: var(--secondary-color)">Acessar Sistema</h2>
 
-            % if error:
-            <div class="error-msg">{{error}}</div>
+            % if erro:
+                <div class="erro-msg">{{erro}}</div>
             % end
+
             <form action="/login" method="POST">
                 <div class="form-group">
                     <label for="email">E-mail</label>
                     <input type="email" id="email" name="email" required placeholder="seu@email.com">
                 </div>
-
                 <div class="form-group">
                     <label for="senha">Senha</label>
-                    <input type="password" id="senha" name="senha" required placeholder="••••••">
+                    <input type="password" id="senha" name="senha" required placeholder="Sua senha">
                 </div>
-
-                <button type="submit" class="full-width-btn" style="background-color: var(--primary-color);">Entrar</button>
+                <button type="submit" class="full-width-btn" style="background-color: var(--success-color);">Entrar</button> 
             </form>
-            <a href="/cadastro" class="switch-link">Ainda não tem conta? <strong>Cadastre-se</strong></a>
-            <a href="/" class="switch-link" style="margin-top: 10px;"> Voltar para Home</a>
+
+            <a href="/cadastro" class="switch-link">Não tem conta? <strong>Cadastre-se</strong></a>
+            <a href="/" class="switch-link" style="margin-top: 10px;">Voltar para Home</a>
         </div>
     </div>
 
+    <footer class="main-footer">
+        <p>Projeto de Orientação a Objetos | Python + Bottle</p>
+        <p style="font-size: 0.8rem; opacity: 0.7;">Desenvolvido por Pedro Luca Manera e Vinicius Araruna</p>
+    </footer>
+    
 </body>
 </html>
