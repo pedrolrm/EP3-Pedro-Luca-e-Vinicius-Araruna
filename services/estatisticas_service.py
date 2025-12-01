@@ -16,7 +16,7 @@ class EstatisticasService:
             WHERE t.usuario_id = ?
         """
         params = [usuario_id]
-        
+
         if tipo:
             query += " AND c.tipo = ?"
             params.append(tipo)
@@ -28,7 +28,7 @@ class EstatisticasService:
         query += " GROUP BY c.nome, c.tipo ORDER BY total DESC"
         
         try:
-            cursor.execute(query)
+            cursor.execute(query, params)
             resultados = cursor.fetchall()
         except sqlite3.Error as e:
             print(f"Erro ao buscar estatísticas: {e}")
