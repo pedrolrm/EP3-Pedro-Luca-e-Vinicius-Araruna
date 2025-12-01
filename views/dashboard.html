@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - FincApp</title>
+    <link rel="stylesheet" href="/static/css/style.css?v=2">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="dashboard-body">
+
+    <nav class="navbar">
+        <div class="logo">FincApp</div>
+        <div class="nav-links">
+            <span style="color: white; margin-right: 20px; opacity: 0.9;">Olá, {{user_name}}</span>
+            <a href="#" class="btn-small">Nova Transação</a>
+            <a href="/logout" style="color: #ff6b6b; margin-left: 20px; font-size: 0.9rem;">Sair</a>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        
+        <div class="summary-grid">
+            <div class="card summary-card">
+                <div class="card-icon icon-receita">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19V5m-7 7l7-7 7 7" /></svg>
+                </div>
+                <div>
+                    <h3>Receita Total</h3>
+                    <p class="valor receita" id="total-receitas">...</p>
+                </div>
+            </div>
+
+            <div class="card summary-card">
+                 <div class="card-icon icon-despesa">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14m7-7l-7 7-7-7" /></svg>
+                </div>
+                <div>
+                    <h3>Despesa Total</h3>
+                    <p class="valor despesa" id="total-despesas">...</p>
+                </div>
+            </div>
+
+            <div class="card summary-card">
+                 <div class="card-icon icon-saldo">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                </div>
+                <div>
+                    <h3>Saldo Atual</h3>
+                    <p class="valor" id="total-saldo">...</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="full-width-chart-section">
+            <div class="card chart-card" style="min-height: 350px;">
+                <div class="card-header">
+                    <h3>Evolução do Saldo (Últimos 6 meses)</h3>
+                </div>
+                <div class="chart-container-box">
+                     <canvas id="graficoLinhaSaldo"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="charts-grid-split">
+            <div class="card chart-card">
+                <div class="card-header">
+                    <h3>Comparativo: Receitas vs Despesas</h3>
+                </div>
+                <div class="chart-container-box">
+                     <canvas id="graficoBarrasComparativo"></canvas>
+                </div>
+            </div>
+
+            <div class="card chart-card">
+                 <div class="card-header">
+                    <h3>Gastos por Categoria</h3>
+                </div>
+                <div class="chart-container-box doughnut-container">
+                    <canvas id="graficoCategoria"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const formatMoney = (value) => {
+            return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+        };
+
+        // Configuração comum para eixos limpos (estilo Adnia)
+        const cleanScales = {
+            y: { beginAtZero: true, grid: { color: '#f3f4f6', drawBorder: false } },
+            x: { grid: { display: false } }
+        };
+
+        async function carregarDashboard() {
+            try {
+                const response = await fetch('/estatisticas/dashboard');
+                if (!response.ok) throw new Error('Erro na API');
+                const dados = await response.json();
+                
+                // 1. Cards
+                document.getElementById('total-receitas').innerText = formatMoney(dados.resumo.receitas);
+                document.getElementById('total-despesas').innerText = formatMoney(dados.resumo.despesas);
+                const saldoEl = document.getElementById('total-saldo');
+                saldoEl.innerText = formatMoney(dados.resumo.saldo);
+                saldoEl.style.color = dados.resumo.saldo >= 0 ? '#10b981' : '#ef4444';
+
+                // 2. NOVO Gráfico de LINHA (Saldo)
+                new Chart(document.getElementById('graficoLinhaSaldo'), {
+                    type: 'line',
+                    data: {
+                        labels: dados.grafico_evolucao.map(d => d.mes),
+                        datasets: [{
+                            label: 'Saldo Mensal',
+                            data: dados.grafico_evolucao.map(d => d.saldo),
+                            borderColor: '#3b82f6', // Azul vibrante
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)', // Fundo azul transparente
+                            tension: 0.4, // Linha curva suave
+                            fill: true, // Preenche abaixo da linha
+                            pointRadius: 6,
+                            pointBackgroundColor: '#ffffff',
+                            pointBorderColor: '#3b82f6',
+                            borderWidth: 3
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: cleanScales, plugins: { legend: { display: false } } }
+                });
+
+                // 3. Gráfico de BARRAS (Comparativo - Antigo)
+                new Chart(document.getElementById('graficoBarrasComparativo'), {
+                    type: 'bar',
+                    data: {
+                        labels: dados.grafico_evolucao.map(d => d.mes),
+                        datasets: [
+                            { label: 'Receitas', data: dados.grafico_evolucao.map(d => d.receitas), backgroundColor: '#10b981', borderRadius: 4 },
+                            { label: 'Despesas', data: dados.grafico_evolucao.map(d => d.despesas), backgroundColor: '#ef4444', borderRadius: 4 }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: cleanScales }
+                });
+
+                // 4. Gráfico de PIZZA (Categorias)
+                new Chart(document.getElementById('graficoCategoria'), {
+                    type: 'doughnut',
+                    data: {
+                        labels: dados.grafico_pizza.map(d => d.categoria),
+                        datasets: [{
+                            data: dados.grafico_pizza.map(d => d.total),
+                            backgroundColor: ['#3b82f6', '#ef4444', '#f59e0b', '#10b981', '#8b5cf6', '#6366f1'],
+                            borderWidth: 0, hoverOffset: 10
+                        }]
+                    },
+                    options: { 
+                        responsive: true, maintainAspectRatio: false, cutout: '75%',
+                        plugins: { legend: { position: 'right', labels: { usePointStyle: true, boxWidth: 8 } } }
+                    }
+                });
+
+            } catch (error) { console.error("Erro:", error); }
+        }
+        document.addEventListener("DOMContentLoaded", carregarDashboard);
+    </script>
+</body>
+</html>
