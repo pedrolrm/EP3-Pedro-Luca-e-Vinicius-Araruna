@@ -2,6 +2,7 @@ from bottle import Bottle
 from controllers.user_controller import UserController
 from controllers.auth_controller import AuthController
 from controllers.base_controller import BaseController
+from controllers.transacao_controller import TransacaoController
 
 def init_controllers(app: Bottle):
     """
@@ -14,7 +15,9 @@ def init_controllers(app: Bottle):
     BaseController(app)
     #AuthController login, registro, logout
     AuthController(app)
-    #USerController dashboard, CRUD adm
+    #UserController dashboard, CRUD adm
     UserController(app)
+    #TransacaoController CRUD transacoes
+    TransacaoController(app)
 
     print('Rotas registradas com sucesso!')
