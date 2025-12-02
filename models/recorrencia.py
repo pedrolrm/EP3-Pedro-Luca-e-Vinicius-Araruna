@@ -1,4 +1,5 @@
 from models.base_model import BaseModel
+import sqlite3
 
 class Recorrencia(BaseModel):
     def __init__(self, id=None, usuario_id=None, categoria_id=None, tipo=None,
@@ -29,4 +30,35 @@ class Recorrencia(BaseModel):
         self.id = cursor.lastrowid
         cursor = conn.cursor()
 
+    def atualizar_proxima_data(self, nova_data):
+        # atualiza a data do proximo lancamento, usado depois de gerar transacao
+        conn = self.get_connection()
+        cursor = conn.cursor()
+
+        cursor.execute('''
+            UPDATE recorrencia
+            SET proxima_data = ?
+            WHERE id = ?
+        ''', (nova_data, self.id))
+
+        conn.commit()
+        conn.close()
+        self.proxima_data = nova_data
+
+    @classmethod
+    def buscar_ativas_por_usuario(cls, usuario_id):
+        # busca todas as recorrencias ativas de um user 
+        conn = cls.get_connection()
+        conn.row_factory = sqlite3.row #garante o acesso por nome da coluna 
+        cursor = conn.cursor()
+
+        rows = cursor.execute('SELECT * FROM recorrencia WHERE usuario_id = ? AND ativo = 1', (usuario_id,)).fetchall()
+        conn.close()
+
+        lista_recorrencia = []   #converte as linhas do banco em objetos recorrencia
+        for row in rows:
+            dados = dict(row)
+            lista_recorrencia.append(cls(**dados))
+
+        return lista_recorrencia
     
