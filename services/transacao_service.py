@@ -94,3 +94,18 @@ class TransacaoService:
             return False
         finally:
             conn.close()
+
+    def get_all_categories(self):
+            conn = get_db_connection()
+            conn.row_factory = sqlite3.Row
+            cursor = conn.cursor()
+            query = "SELECT id, nome, tipo FROM categoria ORDER BY tipo, nome"
+            try:
+                cursor.execute(query)
+                rows = cursor.fetchall()
+                return [dict(row) for row in rows]
+            except sqlite3.Error as e:
+                print(f"Erro ao buscar categorias: {e}")
+                return []
+            finally:
+                conn.close()
