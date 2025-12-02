@@ -290,3 +290,133 @@ input:focus {
 @media (max-width: 900px) {
     .charts-grid-split { grid-template-columns: 1fr; }
 }
+
+/* =========================================
+   MODAL DE NOVA TRANSAÇÃO
+   ========================================= */
+.modal-overlay {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro transparente */
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #f3f4f6;
+    padding-bottom: 15px;
+}
+
+.modal-header h3 {
+    font-size: 1.25rem;
+    color: var(--secondary-color);
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #9ca3af;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.close-btn:hover { color: var(--danger-color); }
+
+/* Ajustes no Form do Modal */
+.modal-form .form-group label {
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: white;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Botão de Sair (Estilo Outline/Ghost) */
+.btn-logout {
+    padding: 8px 20px;
+    border: 1px solid var(--danger-color); /* Borda vermelha */
+    color: var(--danger-color);            /* Texto vermelho */
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-left: 15px;
+    transition: all 0.3s ease;
+    display: inline-block; /* Garante que padding funcione */
+}
+
+.btn-logout:hover {
+    background-color: var(--danger-color); /* Preenche de vermelho ao passar o mouse */
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2);
+}
+
+/* Botão Nova Transação (Estilo Ghost/Outline) */
+#btn-nova-transacao {
+    background-color: transparent;
+    border: 1px solid var(--primary-color); /* Borda Azul */
+    color: var(--primary-color);            /* Texto Azul */
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    /* Garante que o texto fique legível no fundo escuro */
+
+    letter-spacing: 0.5px;
+}
+
+#btn-nova-transacao:hover {
+    background-color: var(--primary-color); /* Preenche de azul */
+    color: white;                           /* Texto vira branco */
+    transform: translateY(-2px);            /* Sobe levemente */
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4); /* Glow azul */
+}
