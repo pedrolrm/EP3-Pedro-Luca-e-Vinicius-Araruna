@@ -5,7 +5,7 @@ class Recorrencia(BaseModel):
     def __init__(self, id=None, usuario_id=None, categoria_id=None, tipo=None,
                   valor=0.0, descricao=None, frequencia= 'mensal', data_inicio=None,
                     proxima_data=None, ativo=1):
-        super.__init__(id)
+        super().__init__(id)
         self.usuario_id = usuario_id
         self.categoria_id = categoria_id
         self.tipo = tipo

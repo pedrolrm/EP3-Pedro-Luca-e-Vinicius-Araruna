@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 from models.recorrencia import Recorrencia
 from models.transacao import Transacao
+from services.transacao_service import TransacaoService
 
 class RecorrenciaService:
     def processar_recorrencia(self, usuario_id):
@@ -30,12 +31,15 @@ class RecorrenciaService:
                     id=None,
                     usuario_id=usuario_id,
                     categoria_id=rec.categoria_id,
-                    tipo = rec.tipo,
+                    tipo_transacao = rec.tipo,
                     valor= rec.valor,
                     descricao= f"[Automático] {rec.descricao}",
                     data= rec.proxima_data
                 )
-                nova_transacao.salvar()
+                
+                TransacaoService().create_transacao(usuario_id=usuario_id,categoria_id=rec.categoria_id,
+                                                    valor=rec.valor, data=rec.proxima_data,
+                                                    descricao=f"[Automático] {rec.descricao}")
 
                 nova_proxima_data = self._calcular_proxima_data(data_agendada,rec.frequencia)
                 rec.atualizar_proxima_data(nova_proxima_data)
