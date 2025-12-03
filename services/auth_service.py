@@ -1,6 +1,7 @@
 import jwt
 import time 
 from services.user_service import UserService
+from utils.password_utils import check_password
 
 #chaves para assinar o token
 SECRET_KEY = "minha_chave_secreta_fincapp"
@@ -14,7 +15,7 @@ class AuthService:
     def login(self, email, senha):
         user = self.user_service.get_by_email(email) #busca user pelo email
         #validacao de senha
-        if user and user.password == senha:
+        if user and check_password(senha, user.password):
             return self._generate_token(user.id, user.name)
         
         return None
