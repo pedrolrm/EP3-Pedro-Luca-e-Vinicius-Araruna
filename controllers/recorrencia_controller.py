@@ -12,7 +12,7 @@ class RecorrenciaController(BaseController):
     def setup_routes(self):
         self.app.route('/recorrencias', method='GET', callback= self.listar)
         self.app.route('/recorrencias/nova', method='POST', callback = self.salvar)
-        self.app.route('/recorrencia/delete/<id:int>', method='GET', callback=self.excluir)
+        self.app.route('/recorrencias/delete/<id:int>', method='GET', callback=self.excluir)
 
     @require_auth
     def listar(self):
@@ -60,7 +60,7 @@ class RecorrenciaController(BaseController):
         return redirect('/recorrencias')
     
     @require_auth
-    def excluir(self):
+    def excluir(self, id):
         conn = Recorrencia.get_connection()
         conn.execute("DELETE FROM recorrencia WHERE id = ?" , (id,))
         conn.commit()
