@@ -176,8 +176,9 @@
                                     <span style="font-size: 0.85rem; color: #888;">• {{rec.frequencia}}</span>
                                 </div>
                             </td>
+                            % classe_texto = 'texto-receita' if rec.tipo == 'receita' else 'texto-despesa'
                             <td
-                                style="font-weight: bold; color: {{'#2ecc71' if rec.tipo == 'receita' else '#e74c3c'}};">
+                                class="{{classe_texto}}" style="font-weight: bold;">
                                 R$ {{rec.valor}}
                             </td>
                             <td>{{rec.proxima_data}}</td>
