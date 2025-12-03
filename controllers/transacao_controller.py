@@ -20,6 +20,7 @@ class TransacaoController(BaseController):
         self.app.route('/transacoes', method='POST', callback=require_auth(self.create_transacao))
         self.app.route('/transacoes/<transacao_id>', method='PUT', callback=require_auth(self.update_transacao))
         self.app.route('/transacoes/<transacao_id>', method='DELETE', callback=require_auth(self.delete_transacao))
+        self.app.route('/categorias', method='GET', callback=require_auth(self.list_categories))
 
     def list_transacoes_by_user(self):
         transacoes = self.service.get_transacao_by_user(request.user_id)
@@ -69,3 +70,7 @@ class TransacaoController(BaseController):
             return self._json_response({'message': 'Transação deletada com sucesso.'})
         else:
             return self._json_response({'error': 'Ocorreu um erro ao deletar a transação.'}, status=500)
+        
+    def list_categories(self):
+        categorias = self.service.get_all_categories()
+        return self._json_response(categorias)

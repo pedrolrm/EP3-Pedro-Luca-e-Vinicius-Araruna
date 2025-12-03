@@ -23,7 +23,5 @@ class DashboardViewController(BaseController):
             mensagem = f"{novas_transacoes} transações recorrentes foram lançadas automaticamente!"
             #aqui busca o saldo real
             
-
-
         # Renderiza o HTML e passa o nome do usuário logado
         return self.render('views/dashboard.html', user_name=request.user_name, msg=mensagem)

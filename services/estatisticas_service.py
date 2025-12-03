@@ -4,7 +4,7 @@ from datetime import datetime
 
 class EstatisticasService:
     
-    def get_total_por_categoria(self, usuario_id, mes=None, ano=None):
+    def get_total_por_categoria(self, usuario_id, tipo=None, mes=None, ano=None):
         conn = get_db_connection()
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
@@ -16,6 +16,10 @@ class EstatisticasService:
             WHERE t.usuario_id = ?
         """
         params = [usuario_id]
+
+        if tipo:
+            query += " AND c.tipo = ?"
+            params.append(tipo)
         
         if mes and ano:
             query += " AND strftime('%m', t.data) = ? AND strftime('%Y', t.data) = ?"
@@ -24,8 +28,10 @@ class EstatisticasService:
         query += " GROUP BY c.nome, c.tipo ORDER BY total DESC"
         
         try:
-            cursor.execute(query)
+            cursor.execute(query, params)
             resultados = cursor.fetchall()
+            return [dict(row) for row in resultados] # FIX: convertendo para lista de dicionarios
+        
         except sqlite3.Error as e:
             print(f"Erro ao buscar estatísticas: {e}")
             resultados = []
