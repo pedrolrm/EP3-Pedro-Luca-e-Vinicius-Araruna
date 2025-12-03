@@ -662,3 +662,74 @@ select {
   transform: translateY(-1px); /* Levanta levemente */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+/* =========================================
+   NOVO: SEÇÃO DE BENEFÍCIOS (FEATURES)
+   ========================================= */
+.features-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    max-width: 1000px;
+    margin: 40px auto; /* Espaço entre o Hero e os Cards */
+    padding: 0 20px;
+    flex-wrap: wrap; /* Para celular: quebra linha */
+}
+
+.feature-card {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    text-align: center;
+    flex: 1; /* Todos com mesmo tamanho */
+    min-width: 250px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-bottom: 4px solid transparent;
+}
+
+/* Efeito ao passar o mouse */
+.feature-card:hover {
+    transform: translateY(-10px); /* Sobe um pouquinho */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-bottom-color: var(--primary-color);
+}
+
+.feature-icon {
+    font-size: 3rem; /* Emoji Grande */
+    margin-bottom: 15px;
+    display: block;
+}
+
+.feature-title {
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.feature-text {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* ANIMAÇÃO DE ENTRADA (FADE IN)= */
+
+/* elementos que devem aparecer devagar */
+.animate-up {
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+/* Atraso para os cards aparecerem depois do Hero */
+.delay-1 { animation-delay: 0.3s; }
+.delay-2 { animation-delay: 0.5s; }
+.delay-3 { animation-delay: 0.7s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
