@@ -56,6 +56,24 @@ def init_db():
                    FOREIGN KEY (categoria_id) REFERENCES categoria(id)
                 )
           ''')
+    
+    #  Tabela de Recorrências 
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS recorrencia (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            usuario_id INTEGER NOT NULL,
+            categoria_id INTEGER NOT NULL,
+            tipo TEXT NOT NULL,          -- 'despesa' ou 'receita'
+            valor REAL NOT NULL,
+            descricao TEXT,
+            frequencia TEXT NOT NULL,    -- 'mensal', 'semanal', 'anual'
+            data_inicio TEXT NOT NULL,   -- Data do primeiro pagamento
+            proxima_data TEXT NOT NULL,  -- Controle interno: quando lançar a próxima?
+            ativo INTEGER DEFAULT 1,     -- 1 = Ativa, 0 = Cancelada
+            FOREIGN KEY (usuario_id) REFERENCES usuario (id),
+            FOREIGN KEY (categoria_id) REFERENCES categoria (id)
+        )
+    ''')
 
     conn.commit()
     conn.close()

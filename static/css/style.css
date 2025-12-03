@@ -217,6 +217,9 @@ input:focus {
   border-radius: 8px;
   box-shadow: var(--shadow);
 }
+/* recorrencia.html */
+.texto-receita { color: #2ecc71; }
+.texto-despesa { color: #e74c3c; }
 
 /* DASHBOARD STYLES */
 .main-container {

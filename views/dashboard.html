@@ -11,11 +11,22 @@
     <nav class="navbar">
         <div class="logo">FincApp</div>
         <div class="nav-links">
+            <a href="/recorrencias" class="nav-item" style="color: white; margin-right: 20px;">Minhas Recorrências</a>
+            <span style="color: rgba(255, 255 , 255, 0.7); margin-right: 15px;">|</span>
             <span style="color: white; margin-right: 20px; opacity: 0.9;">Olá, {{user_name}}</span>
             <button id="btn-nova-transacao">Nova Transação</button>
             <a href="/logout" class="btn-logout">Sair</a>
         </div>
     </nav>
+
+    <div class="container-msg" style=" max-width: 1200px; margin: 20px auto; padding: 0 20px;">
+        % if defined('msg') and msg:
+            <div style="background-color: #d1e7dd; color: #0f5132; padding: 15px; border-radius: 8px; border:1px solid #badbcc; display: flex; align-items: center; gap: 10px;">
+                <span>*</span>
+                <strong>{{msg}}</strong>
+            </div>
+            % end
+    </div>
 
     <div class="main-container">
         
