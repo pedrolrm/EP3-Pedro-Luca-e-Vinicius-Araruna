@@ -41,7 +41,7 @@ class RecorrenciaService:
                 rec.atualizar_proxima_data(nova_proxima_data)
                 count_geradas +=1
 
-            return count_geradas
+        return count_geradas
         
     def _calcular_proxima_data(self, data_atual, frequencia):
         #calcula nova data com base na frequencia
