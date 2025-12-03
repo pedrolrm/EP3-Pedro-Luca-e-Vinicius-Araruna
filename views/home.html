@@ -1,36 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bem-vindo ao FincApp</title>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
-
 <body>
+    
     <nav class="navbar">
-        <div class="logo">FincApp</div>
+        <a href="/" class="logo" style="text-decoration: none;">FincApp </a>
+        
         <div class="nav-links">
-            <a href="/login" class="nav-item">Login</a>
-            <a href="/register" class="btn-small">Cadastrar</a>
+            % if defined('user_name') and user_name:
+                
+                <a href="/recorrencias" class="nav-item">Recorrências</a>
+                
+                <span style="color: rgba(255,255,255,0.3); margin: 0 10px;">|</span>
+
+                <a href="/dashboard" class="nav-item" style="color: white; font-weight: bold;">
+                    Olá, {{user_name.split(' ')[0]}} </a>
+                
+                <a href="/logout" class="btn-small" style="background-color: var(--danger-color);">Sair</a>
+
+            % else:
+                <a href="/login" class="nav-item">Login</a>
+                <a href="/register" class="btn-small">Cadastrar</a>
+            % end
         </div>
     </nav>
 
     <header class="hero">
-        <div class=" hero-section">
+        <div class="hero-section">
             <h1 class="hero-title">FincApp</h1>
-            <p class="hero-subtitle">Controle suas finanças acadêmicas e pessoais de forma simples, rápida e eficiente.</p>
-            <div class="action-buttons">
-                <a href="/login" class="btn btn-primary"> Login</a>
-                <a href="/cadastro" class="btn btn-success"> Cadastro</a>
-            </div>
+            
+            % if defined('user_name') and user_name:
+                <p class="hero-subtitle">Que bom te ver de novo, <strong>{{user_name}}</strong>!</p>
+                
+                <div class="action-buttons">
+                    <a href="/dashboard" class="btn btn-primary">Ir para Dashboard</a>
+                    <a href="/recorrencias" class="btn btn-success">Minhas Contas Fixas</a>
+                </div>
+            % else:
+                <p class="hero-subtitle">Controle suas finanças acadêmicas e pessoais de forma simples, rápida e eficiente.</p>
+                
+                <div class="action-buttons">
+                    <a href="/login" class="btn btn-primary">Entrar</a>
+                    <a href="/register" class="btn btn-success">Criar Conta</a>
+                </div>
+            % end
         </div>
     </header>
 
     <footer class="main-footer">
-        <p> Projeto de Orientação a Objetos | Python + Bottle</p>
-        <p sytle="font-size: 0.8rem; opacity= 0.7;">Desenvolvido por Pedro Luca Manera e Vinicius Araruna</p>
+        <p>Projeto de Orientação a Objetos • Python + Bottle</p>
     </footer>
 
 </body>
