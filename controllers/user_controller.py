@@ -1,6 +1,7 @@
 from bottle import Bottle, request, response
 from .base_controller import BaseController
 from models.user import UserModel, User
+from utils.password_utils import hash_password, check_password
 
 class UserController(BaseController):
     def __init__(self, app):
@@ -28,7 +29,7 @@ class UserController(BaseController):
             nome = request.forms.get('nome')
             email = request.forms.get('email')
             senha = request.forms.get('senha')
-
+            senha = hash_password(senha)
             if self.user_service.get_by_email(email):
                 return self.render('views/register.html', erro= "Email ja cadastrado!")
             
@@ -49,7 +50,7 @@ class UserController(BaseController):
             email = request.forms.get('email')
             senha = request.forms.get('senha')
             user = self.user_service.get_by_email(email)
-            if user and user.password == senha:
+            if user and check_password(senha):
                 response.set_cookie("user_id", str(user.id), secret='sua_chave_secreta_aqui')
                 print(f"Usuário {user.name} logado com sucesso.")
                 return self.redirect('/dashboard')

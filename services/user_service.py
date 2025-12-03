@@ -1,5 +1,6 @@
 from bottle import request
 from models.user import UserModel, User
+from utils.password_utils import hash_password
 
 class UserService:
     def __init__(self):
@@ -17,7 +18,8 @@ class UserService:
     
     #Cria usuario vindo do registro sem depender do request
     def create_user(self,name,email,password):
-        user = User(id=None, name=name, email=email, password=password, birthdate=None)
+        hashed_password = hash_password(password)
+        user = User(id=None, name=name, email=email, password=hashed_password, birthdate=None)
         self.user_model.add_user(user)
         return user
 
@@ -27,7 +29,8 @@ class UserService:
         birthdate = request.forms.get('birthdate')
         password = request.forms.get('password')
         # id = None faz o SQLite gerar o id 
-        user = User(id=None, name=name, email=email, birthdate=birthdate,  password= password)
+        hashed_password = hash_password(password)
+        user = User(id=None, name=name, email=email, birthdate=birthdate,  password= hashed_password)
         self.user_model.add_user(user)
 
     def edit_user(self, user):
