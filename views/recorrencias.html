@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Recorrências - FincApp</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .bg-despesa {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+
+        .bg-receita {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #f8f9fa;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .btn-delete {
+            color: var(--danger-color);
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border: 1px solid var(--danger-color);
+            border-radius: 4px;
+            font-size: 0.8rem;
+            transition: 0.2s;
+        }
+
+        .btn-delete:hover {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        @media (max-width: 900px) {
+            .layout-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="/" class="logo" style="text-decoration: none; color: white;">FincApp</a>
+        <div class="nav-links">
+            <a href="/dashboard" class="nav-item">Dashboard</a>
+            <span style="color: #666">|</span>
+            <span style="color: white;font-weight: bold;">Recorrências</span>
+            <a href="/logout" class="btn-small" style="background-color: var(--danger-color);">Sair</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div style="border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 20px;">
+            <h2>Gerenciar Contas Fixas</h2>
+            <p style="color: #666;">Cadastre aqui as suas contas que se repetem todo mês(Aluguel, Salário,
+                Assinaturas...)</p>
+        </div>
+
+        <div class="layout-grid">
+            <div class="auth-card" style="width: 100%; max-width: none; border-top: 5px solid var(--success-color);">
+                <h3 style="margin-bottom: 20px; color: var(--text-color);">Nova Regra</h3>
+                <form action="/recorrencias/nova" method="POST">
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <input type="text" name="descricao" placeholder="Ex: Netflix" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Valor(R$)</label>
+                        <input type="number" name="valor" step="0.01" placeholder="0.00" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tipo</label>
+                        <select name="tipo"
+                            style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 5px; background: white;">
+                            <option value="despesa">💸 Despesa (Saída)</option>
+                            <option value="receita">💰 Receita (Entrada)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Categoria</label>
+                        <select name="categoria_id" required
+                            style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 5px; background: white;">
+                            <option value="" disabled selected>Selecione...</option>
+                            % for cat in categorias:
+                            <option value="{{cat.id}}">{{cat.nome}}</option>
+                            % end
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Frequência</label>
+                        <select name="frequencia"
+                            style="width: 100%; padding:12px; border: 1px solid var(--border-color); border-radius: 5px;background: white;">
+                            <option value="mensal" selected>Mensal</option>
+                            <option value="semanal" selected>Semanal</option>
+                            <option value="anual" selected>Anual</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Data de início (Próxima cobrança)</label>
+                        <input type="date" name="data_inicio" required>
+                    </div>
+
+                    <button type="submit" class="full-width-btn" style="background-color: var(--success-color);">Salvar
+                        Recorrências</button>
+                </form>
+            </div>
+
+            <div class="auth-card" style="width: 100%; max-width: none; border-top: 5px solid var(--primary-color);">
+                <h3 style="margin-bottom: 20px;"> Assinaturas Ativas</h3>
+
+                % if not recorrencias:
+                <div
+                    style="text-align: center; padding: 40px; color: #999; border: 2px dashed #eee; border-radius: 8px;">
+                    <p style="font-size: 2rem;">📭</p>
+                    <p>Nenhuma conta fixa cadastrada.</p>
+                </div>
+                % else:
+                <div style="overflow-x: auto;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Descrição</th>
+                                <th>Valor</th>
+                                <th> Próximo Vencimento</th>
+                                <th>Ação</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <tbody>
+                        % for rec in recorrencias:
+                        <tr>
+                            <td>
+                                <div style="font-weight: bold; font-size: 1.1rem;">{{rec.descricao}}</div>
+                                <div style="margin-top: 5px;">
+                                    <span class="badge {{'bg-receita' if rec.tipo == 'receita' else 'bg-despesa'}}">
+                                        {{rec.tipo.upper()}}
+                                    </span>
+                                    <span style="font-size: 0.85rem; color: #888;">• {{rec.frequencia}}</span>
+                                </div>
+                            </td>
+                            % classe_texto = 'texto-receita' if rec.tipo == 'receita' else 'texto-despesa'
+                            <td
+                                class="{{classe_texto}}" style="font-weight: bold;">
+                                R$ {{rec.valor}}
+                            </td>
+                            <td>{{rec.proxima_data}}</td>
+                            <td>
+                                <a href="/recorrencias/delete/{{rec.id}}" class="btn-delete"
+                                    onclick="return confirm('Tem certeza que deseja cancelar esta recorrências')">Cancelar</a>
+                            </td>
+                        </tr>
+                        % end
+                    </tbody>
+                    </table>
+                </div>
+                % end
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="main-footer">
+        <p>Projeto de Orientação a Objetos | Python + Bottle</p>
+        <p style="font-size: 0.8rem; opacity: 0.7;">Desenvolvido por Pedro Luca Manera e Vinicius Araruna</p>
+    </footer>
+
+</body>
+
+</html>

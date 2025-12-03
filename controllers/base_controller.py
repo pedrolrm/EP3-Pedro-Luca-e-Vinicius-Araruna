@@ -1,10 +1,11 @@
-from bottle import static_file
+from bottle import static_file, template as bottle_template, HTTPResponse, response as bottle_response, request
+# Importação necessária para verificar o token
+from services.auth_service import AuthService
 
 class BaseController:
     def __init__(self, app):
         self.app = app
         self._setup_base_routes()
-
 
     def _setup_base_routes(self):
         """Configura rotas básicas comuns a todos os controllers"""
@@ -14,31 +15,41 @@ class BaseController:
         # Rota para arquivos estáticos (CSS, JS, imagens)
         self.app.route('/static/<filename:path>', callback=self.serve_static)
 
-
     def home_redirect(self):
-        """Redireciona a rota raiz para /users"""
-        return self.redirect('/users')
+        """
+        Redireciona para a Home Page.
+        Lógica inteligente: Verifica se o usuário já está logado para adaptar a tela.
+        """
+        user_name = None
+        
+        # Tenta pegar o cookie de autenticação
+        token = request.get_cookie("auth_token")
+        
+        if token:
+            # Se o cookie existe, validamos se o token é verdadeiro
+            payload = AuthService.validate_token(token)
+            
+            if payload:
+                # Se for válido, extraímos o nome do usuário
+                user_name = payload['name']
 
+        # O HTML vai usar esse 'user_name' no %if para decidir quais botões mostrar
+        return self.render('views/home.html', user_name=user_name)
 
     def helper(self):
         return self.render('helper-final')
-
 
     def serve_static(self, filename):
         """Serve arquivos estáticos da pasta static/"""
         return static_file(filename, root='./static')
 
-
-    def render(self, template, **context):
+    def render(self, template_name, **context):
         """Método auxiliar para renderizar templates"""
         from bottle import template as render_template
-        return render_template(template, **context)
-
+        return render_template(template_name, **context)
 
     def redirect(self, path, code=302):
         """Redirecionamento robusto com tratamento de erros"""
-        from bottle import HTTPResponse, response as bottle_response
-
         try:
             bottle_response.status = code
             bottle_response.set_header('Location', path)
