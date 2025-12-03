@@ -49,7 +49,7 @@ class Recorrencia(BaseModel):
     def buscar_ativas_por_usuario(cls, usuario_id):
         # busca todas as recorrencias ativas de um user 
         conn = cls.get_connection()
-        conn.row_factory = sqlite3.row #garante o acesso por nome da coluna 
+        conn.row_factory = sqlite3.Row #garante o acesso por nome da coluna 
         cursor = conn.cursor()
 
         rows = cursor.execute('SELECT * FROM recorrencia WHERE usuario_id = ? AND ativo = 1', (usuario_id,)).fetchall()
