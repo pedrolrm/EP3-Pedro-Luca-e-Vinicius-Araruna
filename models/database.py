@@ -75,6 +75,29 @@ def init_db():
         )
     ''')
 
+    # adicionar banco de categorias
+    qtd = cursor.execute("SELECT count(*) FROM categoria").fetchone()[0]
+
+    if qtd == 0:
+        print("Banco vazio. Inserindo categorias por padrão...")
+
+        lista_categorias = [
+            # Receitas
+            ('Salário', 'receita'), ('Freelance', 'receita'), ('Investimentos', 'receita'),
+            ('Presente', 'receita'), ('Outros (Entrada)', 'receita'),
+            
+            # Despesas
+            ('Alimentação', 'despesa'), ('Mercado', 'despesa'), ('Aluguel/Condomínio', 'despesa'),
+            ('Transporte', 'despesa'), ('Lazer', 'despesa'), ('Educação', 'despesa'),
+            ('Saúde', 'despesa'), ('Assinaturas/Streaming', 'despesa'), ('Roupas', 'despesa'),
+            ('Viagem', 'despesa'), ('Eletrônicos', 'despesa'), ('Outros (Saída)', 'despesa')
+        ]
+
+        cursor.executemany("INSERT INTO categoria (nome, tipo) VALUES (?, ?)", lista_categorias)
+        print(f"✅ {len(lista_categorias)} categorias inseridas!")
+
+    else:
+        print("Categorias já existem. Nenhuma alteração foi feita!")
     conn.commit()
     conn.close()
     print("Banco de dados inicializado com sucesso.")
