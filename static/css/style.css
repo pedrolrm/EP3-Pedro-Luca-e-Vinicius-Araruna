@@ -1,19 +1,23 @@
 /*VARIÁVEIS E BASE */
 :root {
-  --primary-color: #3498db;    /* Azul */
-  --secondary-color: #2980b9;  /* Azul Escuro */
-  --danger-color: #e74c3c;     /* Vermelho */
-  --success-color: #2ecc71;    /* Verde */
+  --primary-color: #3498db; /* Azul */
+  --secondary-color: #2980b9; /* Azul Escuro */
+  --danger-color: #e74c3c; /* Vermelho */
+  --success-color: #2ecc71; /* Verde */
   --text-color: #333;
   --light-gray: #f5f5f5;
   --border-color: #ddd;
   --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
   color: var(--text-color);
   background-color: #f9f9f9;
@@ -25,38 +29,42 @@ body {
 }
 
 /* Links globais */
-a { text-decoration: none; }
+a {
+  text-decoration: none;
+}
 
 /* NAVBAR */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 5%;
-    background-color: #1a1a1a;
-    box-shadow: 0 4px 10px rgba(0 ,0, 0, 0.03);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 5%;
+  background-color: #1a1a1a;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
 }
 
 .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
 }
 
 .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .nav-item {
-    text-decoration: none;
-    color: #ecf0f1;
-    font-weight: 500;
-    transition: color 0.3s;
+  text-decoration: none;
+  color: #ecf0f1;
+  font-weight: 500;
+  transition: color 0.3s;
 }
 
-.nav-item:hover { color: var(--primary-color); }
+.nav-item:hover {
+  color: var(--primary-color);
+}
 
 /*HOME PAGE (Hero Section) */
 .hero-section {
@@ -87,9 +95,8 @@ a { text-decoration: none; }
   justify-content: center;
 }
 
-
 /* Footer */
-.main-footer{
+.main-footer {
   background-color: #1a1a1a;
   color: white;
   text-align: center;
@@ -121,18 +128,20 @@ a { text-decoration: none; }
 }
 
 .btn-success {
-  background-color: var(--success-color); 
+  background-color: var(--success-color);
   color: white;
 }
 
 .btn-small {
-    padding: 8px 20px;
-    background-color: var(--primary-color);
-    color: white;
-    border-radius: 4px;
-    font-size: 0.9rem;
+  padding: 8px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 4px;
+  font-size: 0.9rem;
 }
-.btn-small:hover { background-color: var(--secondary-color); }
+.btn-small:hover {
+  background-color: var(--secondary-color);
+}
 
 /* AUTH (Login e Cadastro) */
 .auth-wrapper {
@@ -165,7 +174,7 @@ label {
 
 input {
   width: 100%;
-  padding: 12px; 
+  padding: 12px;
   border: 1px solid var(--border-color);
   border-radius: 5px;
   font-size: 14px;
@@ -218,208 +227,438 @@ input:focus {
   box-shadow: var(--shadow);
 }
 /* recorrencia.html */
-.texto-receita { color: #2ecc71; }
-.texto-despesa { color: #e74c3c; }
+.texto-receita {
+  color: #2ecc71;
+}
+.texto-despesa {
+  color: #e74c3c;
+}
 
 /* DASHBOARD STYLES */
 .main-container {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 25px;
-    width: 100%;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 25px;
+  width: 100%;
 }
 
 .card {
-    background: #ffffff;
-    border-radius: 16px;
-    border: 1px solid rgba(0,0,0,0.03);
-    box-shadow: var(--card-shadow);
-    padding: 25px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  box-shadow: var(--card-shadow);
+  padding: 25px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
 
 .summary-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-    margin-bottom: 35px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin-bottom: 35px;
 }
 
-.summary-card { display: flex; align-items: center; }
+.summary-card {
+  display: flex;
+  align-items: center;
+}
 
 .card-icon {
-    width: 55px;
-    height: 55px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 20px;
-    flex-shrink: 0;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+  flex-shrink: 0;
 }
 
-.card-icon svg { width: 26px; height: 26px; }
+.card-icon svg {
+  width: 26px;
+  height: 26px;
+}
 
-.icon-receita { background-color: #d1fae5; color: var(--success-color); }
-.icon-despesa { background-color: #fee2e2; color: var(--danger-color); }
-.icon-saldo   { background-color: #e0f2fe; color: var(--primary-color); }
+.icon-receita {
+  background-color: #d1fae5;
+  color: var(--success-color);
+}
+.icon-despesa {
+  background-color: #fee2e2;
+  color: var(--danger-color);
+}
+.icon-saldo {
+  background-color: #e0f2fe;
+  color: var(--primary-color);
+}
 
-.summary-card h3 { font-size: 0.85rem; color: #9ca3af; text-transform: uppercase; font-weight: 600; margin-bottom: 5px; }
-.valor { font-size: 1.8rem; font-weight: 700; color: #111827; line-height: 1.1; }
-.receita { color: var(--success-color); }
-.despesa { color: var(--danger-color); }
+.summary-card h3 {
+  font-size: 0.85rem;
+  color: #9ca3af;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.valor {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #111827;
+  line-height: 1.1;
+}
+.receita {
+  color: var(--success-color);
+}
+.despesa {
+  color: var(--danger-color);
+}
 
-.full-width-chart-section { margin-bottom: 35px; }
+.full-width-chart-section {
+  margin-bottom: 35px;
+}
 
 .charts-grid-split {
-    display: grid;
-    grid-template-columns: 3fr 2fr;
-    gap: 25px;
-    align-items: stretch;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 25px;
+  align-items: stretch;
 }
 
-.chart-card { display: flex; flex-direction: column; min-height: 400px; }
-.card-header {
-    margin-bottom: 25px;
-    border-bottom: 1px solid #f3f4f6;
-    padding-bottom: 15px;
+.chart-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 400px;
 }
-.card-header h3 { font-size: 1.1rem; color: var(--secondary-color); font-weight: 600; }
-.chart-container-box { flex-grow: 1; position: relative; width: 100%; }
-.doughnut-container { display: flex; align-items: center; }
+.card-header {
+  margin-bottom: 25px;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 15px;
+}
+.card-header h3 {
+  font-size: 1.1rem;
+  color: var(--secondary-color);
+  font-weight: 600;
+}
+.chart-container-box {
+  flex-grow: 1;
+  position: relative;
+  width: 100%;
+}
+.doughnut-container {
+  display: flex;
+  align-items: center;
+}
 
 @media (max-width: 900px) {
-    .charts-grid-split { grid-template-columns: 1fr; }
+  .charts-grid-split {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* =========================================
    MODAL DE NOVA TRANSAÇÃO
    ========================================= */
 .modal-overlay {
-    display: none; /* Escondido por padrão */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro transparente */
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+  display: none; /* Escondido por padrão */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro transparente */
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 .modal-overlay.active {
-    display: flex;
-    opacity: 1;
+  display: flex;
+  opacity: 1;
 }
 
 .modal-content {
-    background: white;
-    padding: 30px;
-    border-radius: 16px;
-    width: 100%;
-    max-width: 500px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    transform: translateY(-20px);
-    transition: transform 0.3s ease;
-    position: relative;
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  transform: translateY(-20px);
+  transition: transform 0.3s ease;
+  position: relative;
 }
 
 .modal-overlay.active .modal-content {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
 .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-    border-bottom: 1px solid #f3f4f6;
-    padding-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 15px;
 }
 
 .modal-header h3 {
-    font-size: 1.25rem;
-    color: var(--secondary-color);
-    margin: 0;
+  font-size: 1.25rem;
+  color: var(--secondary-color);
+  margin: 0;
 }
 
 .close-btn {
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    color: #9ca3af;
-    cursor: pointer;
-    transition: color 0.2s;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: #9ca3af;
+  cursor: pointer;
+  transition: color 0.2s;
 }
-.close-btn:hover { color: var(--danger-color); }
+.close-btn:hover {
+  color: var(--danger-color);
+}
 
 /* Ajustes no Form do Modal */
 .modal-form .form-group label {
-    font-size: 0.9rem;
-    color: #6b7280;
+  font-size: 0.9rem;
+  color: #6b7280;
 }
 
 .modal-actions {
-    display: flex;
-    gap: 15px;
-    margin-top: 25px;
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
 }
 
 select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background-color: white;
-    font-size: 14px;
-    font-family: 'Poppins', sans-serif;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: white;
+  font-size: 14px;
+  font-family: "Poppins", sans-serif;
 }
 
 /* Botão de Sair (Estilo Outline/Ghost) */
 .btn-logout {
-    padding: 8px 20px;
-    border: 1px solid var(--danger-color); /* Borda vermelha */
-    color: var(--danger-color);            /* Texto vermelho */
-    border-radius: 6px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    margin-left: 15px;
-    transition: all 0.3s ease;
-    display: inline-block; /* Garante que padding funcione */
+  padding: 8px 20px;
+  border: 1px solid var(--danger-color); /* Borda vermelha */
+  color: var(--danger-color); /* Texto vermelho */
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-left: 15px;
+  transition: all 0.3s ease;
+  display: inline-block; /* Garante que padding funcione */
 }
 
 .btn-logout:hover {
-    background-color: var(--danger-color); /* Preenche de vermelho ao passar o mouse */
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2);
+  background-color: var(
+    --danger-color
+  ); /* Preenche de vermelho ao passar o mouse */
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2);
 }
 
 /* Botão Nova Transação (Estilo Ghost/Outline) */
 #btn-nova-transacao {
-    background-color: transparent;
-    border: 1px solid var(--primary-color); /* Borda Azul */
-    color: var(--primary-color);            /* Texto Azul */
-    padding: 8px 20px;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    
-    /* Garante que o texto fique legível no fundo escuro */
+  background-color: transparent;
+  border: 1px solid var(--primary-color); /* Borda Azul */
+  color: var(--primary-color); /* Texto Azul */
+  padding: 8px 20px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
 
-    letter-spacing: 0.5px;
+  /* Garante que o texto fique legível no fundo escuro */
+
+  letter-spacing: 0.5px;
 }
 
 #btn-nova-transacao:hover {
-    background-color: var(--primary-color); /* Preenche de azul */
-    color: white;                           /* Texto vira branco */
-    transform: translateY(-2px);            /* Sobe levemente */
-    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4); /* Glow azul */
+  background-color: var(--primary-color); /* Preenche de azul */
+  color: white; /* Texto vira branco */
+  transform: translateY(-2px); /* Sobe levemente */
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4); /* Glow azul */
+}
+
+#modal-view-transacoes .modal-body {
+  background-color: #f3f4f6;
+  padding: 20px;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Scrollbar personalizada e suave */
+#modal-view-transacoes .modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+#modal-view-transacoes .modal-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+#modal-view-transacoes .modal-body::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+#modal-view-transacoes .modal-body::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Card de cada transação */
+.transacao-item {
+  background-color: white;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.transacao-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-color: #d1d5db;
+}
+
+/* Cabeçalho do item (Descrição e Valor) */
+.transacao-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 4px;
+}
+
+.transacao-titulo {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 1.05rem;
+}
+
+.transacao-valor {
+  font-weight: 700;
+  color: #1f2937;
+  font-size: 1.1rem;
+}
+
+.transacao-sub {
+  font-size: 0.875rem;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Botões de Ação (Pequenos) */
+.transacao-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+  border-top: 1px dashed #e5e7eb;
+  padding-top: 10px;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  border-radius: 6px;
+  cursor: pointer;
+  border: none;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.btn-editar {
+  background-color: #e0e7ff; /* Azul bem claro */
+  color: #4338ca; /* Azul índigo */
+}
+.btn-editar:hover {
+  background-color: #c7d2fe;
+}
+
+.btn-deletar {
+  background-color: #fee2e2; /* Vermelho claro */
+  color: #b91c1c; /* Vermelho escuro */
+}
+.btn-deletar:hover {
+  background-color: #fecaca;
+}
+
+/* --- Área de Edição --- */
+.edit-area {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.form-edit-transacao {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-edit-transacao input,
+.form-edit-transacao select {
+  padding: 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background-color: white;
+  width: 100%;
+  box-sizing: border-box; /* Garante que o padding não estoure a largura */
+}
+
+.form-edit-transacao input:focus,
+.form-edit-transacao select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+/* Sobrescrevendo o botão "Ver Transações" para ficar BRANCO e SÓLIDO */
+#btn-ver-transacoes {
+  background-color: #ffffff; /* Fundo Branco */
+  color: #374151; /* Texto Cinza Escuro (quase preto) */
+  border: 1px solid #e5e7eb; /* Borda bem sutil cinza */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sombra leve */
+
+  /* Garante que ele herde o formato bonito */
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#btn-ver-transacoes:hover {
+  background-color: #f3f4f6; /* Cinza bem clarinho ao passar o mouse */
+  color: #111827; /* Texto fica preto absoluto */
+  transform: translateY(-1px); /* Levanta levemente */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
