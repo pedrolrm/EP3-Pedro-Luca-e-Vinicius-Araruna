@@ -7,7 +7,7 @@ from models.categoria import Categoria
 class RecorrenciaController(BaseController):
     def __init__(self, app):
         super().__init__(app)
-        self.register_routes()
+        self.setup_routes()
 
     def setup_routes(self):
         self.app.route('/recorrencias', method='GET', callback= self.listar)
