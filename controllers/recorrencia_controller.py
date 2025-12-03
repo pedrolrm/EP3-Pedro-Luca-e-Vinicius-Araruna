@@ -60,7 +60,7 @@ class RecorrenciaController(BaseController):
         return redirect('/recorrencias')
     
     @require_auth
-    def excluir(self):
+    def excluir(self,id):
         conn = Recorrencia.get_connection()
         conn.execute("DELETE FROM recorrencia WHERE id = ?" , (id,))
         conn.commit()

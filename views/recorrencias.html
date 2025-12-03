@@ -117,8 +117,6 @@
                         <select name="categoria_id" required
                             style="width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 5px; background: white;">
                             <option value="" disabled selected>Selecione...</option>
-                            <option value="nova" style="font-weight: bold; color: var(--primary-color);">+ Nova Categoria...</option>
-                            <option disabled>----------------</option>
                             % for cat in categorias:
                             <option value="{{cat.id}}">{{cat.nome}}</option>
                             % end
@@ -203,23 +201,6 @@
         <p>Projeto de Orientação a Objetos | Python + Bottle</p>
         <p style="font-size: 0.8rem; opacity: 0.7;">Desenvolvido por Pedro Luca Manera e Vinicius Araruna</p>
     </footer>
-    
-    <script>
-        function verificarNovaCategoria(select){
-            const inputDiv = document.getElementById('input-nova-cat');
-            const inputField = inputDiv.querySelector('input');
-
-            if(select.value == 'nova'){
-                inputDiv.style.display = 'block';
-                inputField.required = true;
-                inputField.focus();
-            } else {
-                inputDiv.style.display = 'none';
-                inputField.required = false;
-                inputField.value = ''
-            }
-        }
-    </script>
 
 </body>
 
