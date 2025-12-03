@@ -9,29 +9,79 @@
 </head>
 
 <body>
+
     <nav class="navbar">
-        <div class="logo">FincApp</div>
+        <a href="/" class="logo" style="text-decoration: none;">FincApp </a>
+
         <div class="nav-links">
+            % if defined('user_name') and user_name:
+
+            <a href="/recorrencias" class="nav-item">Recorrências</a>
+
+            <span style="color: rgba(255,255,255,0.3); margin: 0 10px;">|</span>
+
+            <a href="/dashboard" class="nav-item" style="color: white; font-weight: bold;">
+                Olá, {{user_name.split(' ')[0]}} </a>
+
+            <a href="/logout" class="btn-small" style="background-color: var(--danger-color);">Sair</a>
+
+            % else:
             <a href="/login" class="nav-item">Login</a>
             <a href="/register" class="btn-small">Cadastrar</a>
+            % end
         </div>
     </nav>
 
     <header class="hero">
-        <div class=" hero-section">
+        <div class="hero-section">
             <h1 class="hero-title">FincApp</h1>
-            <p class="hero-subtitle">Controle suas finanças acadêmicas e pessoais de forma simples, rápida e eficiente.</p>
+
+            % if defined('user_name') and user_name:
+            <p class="hero-subtitle">Que bom te ver de novo, <strong>{{user_name}}</strong>!</p>
+
             <div class="action-buttons">
-                <a href="/login" class="btn btn-primary"> Login</a>
-                <a href="/cadastro" class="btn btn-success"> Cadastro</a>
+                <a href="/dashboard" class="btn btn-primary">Ir para Dashboard</a>
+                <a href="/recorrencias" class="btn btn-success">Minhas Contas Fixas</a>
             </div>
+            % else:
+            <p class="hero-subtitle">Controle suas finanças acadêmicas e pessoais de forma simples, rápida e eficiente.
+            </p>
+            <div class="action-buttons">
+                <a href="/login" class="btn btn-primary">Entrar</a>
+                <a href="/register" class="btn btn-success">Criar Conta</a>
+            </div>
+            % end
         </div>
     </header>
 
+    <section class="features-container">
+
+        <div class="feature-card animate-up delay-1">
+            <span class="feature-icon">💸</span>
+            <h3 class="feature-title">Controle Total</h3>
+            <p class="feature-text">Saiba exatamente para onde vai seu dinheiro com gráficos simples e intuitivos.</p>
+        </div>
+
+        <div class="feature-card animate-up delay-2">
+            <span class="feature-icon">🔄</span>
+            <h3 class="feature-title">Recorrências</h3>
+            <p class="feature-text">Cadastre contas fixas como Netflix ou Aluguel e nós lançamos automaticamente para
+                você.</p>
+        </div>
+
+        <div class="feature-card animate-up delay-3">
+            <span class="feature-icon">🔒</span>
+            <h3 class="feature-title">100% Seguro</h3>
+            <p class="feature-text">Seus dados são protegidos com login criptografado.</p>
+        </div>
+
+    </section>
+
     <footer class="main-footer">
-        <p> Projeto de Orientação a Objetos | Python + Bottle</p>
-        <p sytle="font-size: 0.8rem; opacity= 0.7;">Desenvolvido por Pedro Luca Manera e Vinicius Araruna</p>
+        <p>Projeto de Orientação a Objetos | Python + Bottle</p>
+        <p style="font-size: 0.8rem; opacity: 0.7;">Desenvolvido por Pedro Luca Manera e Vinicius Araruna</p>
     </footer>
 
 </body>
+
 </html>
